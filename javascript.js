@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------------------------
     const descriptions = [
         // CORRECTION CRITIQUE : Monsieur Ya passe en première position (Index 0) pour démarrer l'effet
-        "Monsieur Ya Esse Siméon est un expert ivoirien, zootechnicien et nutritionniste, spécialisé dans l'agropastoral qui vous accompagnera pour la réalisation de vos projets.",
+        "Monsieur Ya Esse Siméon est un expert ivoirien, zootechnicien et nutritionniste, spécialisé dans l'agropastoral vous accompagnera pour la réalisation de vos projets.",
         "Acteur majeur dans l'accompagnement, le conseil technique, l'aménagement de fermes modernes et la réalisation d'infrastructures durables en Côte d'Ivoire.",
         "Votre partenaire de confiance pour la gestion de vos élevages de volailles, la production d'aliments et le suivi sanitaire complet de votre ferme.",
         "Expert en ingénierie aquacole : installation de bacs hors-sol professionnels, gestion de l'eau et optimisation des rendements de votre pisciculture.",
