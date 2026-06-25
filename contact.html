@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOAYE SERVICE — Nos Projets</title>
+    
+    <!-- Liaisons CSS épurées et ordonnées -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Projet.css">
+    
+    <!-- Scripts de pilotage interactif -->
+    <script src="javascript.js" defer></script>
+    <link rel="stylesheet" href="Conctact.css">
+    <script src="formulaire.js" defer></script>
+</head>
+<body>
+
+    <!-- ==========================================================================
+       BARRE DE NAVIGATION AVEC ALLUMAGE ORANGE EFFECTIF SUR PROJETS
+       ========================================================================== -->
+    <header id="mainHeader">
+        <div class="logo">
+            <a href="index.html">
+                <img src="image/logo.png" alt="Logo MOAYE SERVICE">
+            </a>
+        </div>
+        
+        <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <!-- On retire la classe active d'ici pour libérer l'accueil -->
+                <li><a href="index.html">Accueil</a></li>
+                <!-- Redirection vers votre future page dédiée d'expertises -->
+                <li><a href="Expertise.html">Expertises Agro-pastoral</a></li>
+                <!-- CORRECTION : C'est le mot Projets qui s'allume en orange sur cette page -->
+                <li><a href="Projet.html" class="active">Projets</a></li>
+                <!-- CORRECTION : Liens sortants vers l'index pour éviter de bloquer le client -->
+                <li><a href="index.html#partenaires">Nos partenaires</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<main>
+    <!-- BANNIÈRE D'ACCUEIL -->
+    <section class="contact-hero">
+        <div class="hero-contact-text">
+            <h1>Demande de Devis & Contact</h1>
+            <p>Remplissez ce formulaire détaillé pour soumettre votre projet. Notre équipe étudiera vos besoins pour vous proposer une solution sur-mesure sous 24h.</p>
+        </div>
+    </section>
+
+    <!-- FORMULAIRE DE DEVIS COMPLET -->
+    <section class="contact-page-content">
+        <div class="devis-form-container">
+            <h2>📋 Formulaire de Contact et de Demande de Devis</h2>
+            
+            <form id="whatsappDevisForm">
+                
+                <!-- SECTION 1 : INFORMATIONS PERSONNELLES -->
+                <div class="form-devis-section">
+                    <h3>1. Informations personnelles / Entreprise</h3>
+                    
+                    <div class="form-grid-2-cols">
+                        <div class="form-group-field">
+                            <label for="clientName">Nom complet ou Raison sociale <span class="star-req">*</span></label>
+                            <input type="text" id="clientName" placeholder="Ex: Kouadio Koffi Jean" required>
+                        </div>
+                        <div class="form-group-field">
+                            <label for="clientEmail">Adresse Email <span class="star-req">*</span></label>
+                            <input type="email" id="clientEmail" placeholder="Ex: jean.koffi@gmail.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2-cols">
+                        <div class="form-group-field">
+                            <label for="clientPhone">Numéro de téléphone <span class="star-req">*</span></label>
+                            <input type="tel" id="clientPhone" placeholder="Ex: +225 0709732358" required>
+                        </div>
+                        <div class="form-group-field">
+                            <label for="clientLocation">Ville / Localisation <span class="star-req">*</span></label>
+                            <input type="text" id="clientLocation" placeholder="Ex: Abidjan, Angré" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2 : VOTRE PROJET -->
+                <div class="form-devis-section">
+                    <h3>2. Votre Projet / Besoin</h3>
+                    
+                    <div class="form-group-field">
+                        <label for="prestationType">Type de prestation <span class="star-req">*</span></label>
+                        <select id="prestationType" required>
+                            <option value="" disabled selected>Choisissez une option...</option>
+                            <option value="Expertise Agropastorale">Expertise Agropastorale</option>
+                            <option value="Bâtiment et Travaux Publics (BTP)">Bâtiment et Travaux Publics (BTP)</option>
+                            <option value="Apiculture / Pisciculture">Apiculture / Pisciculture</option>
+                            <option value="Aménagement rural">Aménagement rural</option>
+                            <option value="Autre (à préciser)">Autre (à préciser)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-field">
+                        <label for="projectDesc">Description détaillée de votre projet <span class="star-req">*</span></label>
+                        <textarea id="projectDesc" rows="5" placeholder="Décrivez précisément votre besoin, la superficie, le type de bâtiment, etc..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- SECTION 3 : ÉCHÉANCES ET BUDGET -->
+                <div class="form-devis-section">
+                    <h3>3. Échéances et Budget</h3>
+                    
+                    <div class="form-grid-2-cols">
+                        <div class="form-group-field">
+                            <label for="startDate">Date souhaitée pour le début des travaux/services <span class="star-req">*</span></label>
+                            <input type="date" id="startDate" required>
+                        </div>
+                        <div class="form-group-field">
+                            <label for="budgetEst">Budget estimé (FCFA) <span class="star-req">*</span></label>
+                            <select id="budgetEst" required>
+                                <option value="" disabled selected>Choisissez une tranche budgétaire...</option>
+                                <option value="Moins de 1 Million">Moins de 1 Million</option>
+                                <option value="Entre 1 et 5 Millions">Entre 1 et 5 Millions</option>
+                                <option value="Plus de 5 Millions">Plus de 5 Millions</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 4 : SOUMISSION -->
+                <div class="form-devis-section last-section">
+                    <h3>4. Soumission</h3>
+                    <button type="submit" class="btn-submit-devis">Envoyer la demande 💬</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+</main>
+<footer class="main-footer">
+    <div class="footer-grid">
+        
+        <!-- Colonne 1 : À Propos de l'entreprise -->
+        <div class="footer-column footer-brand">
+            <h3>MOAYE <span class="accent-text">SERVICE</span></h3>
+            <p>Votre partenaire stratégique en Côte d'Ivoire. Nous mettons notre double compétence unique au service de la réussite de vos projets Agro-pastoraux et BTP.</p>
+        </div>
+
+        <!-- Colonne 2 : Liens de navigation rapide -->
+        <div class="footer-column">
+            <h4>Navigation</h4>
+            <ul class="footer-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#expertises">Nos Expertises</a></li>
+                <li><a href="#partenaires">Partenaires</a></li>
+                <li><a href="#galerie">Galerie Projets</a></li>
+                <li><a href="#demande-projet">Demander un devis</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 3 : Informations de contact direct cliquables -->
+        <div class="footer-column">
+            <h4>Nos Coordonnées</h4>
+            <ul class="footer-contact-list">
+                <li>📍 <span>Toumodi</span></li>
+                <li>🕒 <span>Lun - Ven : 08h00 - 17h00</span></li>
+                <li>📞 <a href="tel:+225 +225 00 00 00 00 00 ">+225 0709732358</a></li>
+                <li>✉️ <a href="mailto:contact@moayeservice.com">contact@moayeservice.com</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 4 : Réseaux sociaux & Action Directe -->
+        <div class="footer-column">
+            <h4>Suivez-nous</h4>
+            <div class="footer-socials">
+                <a href="#" class="social-link">Facebook</a>
+                <!-- Lien direct WhatsApp qui utilise votre variable globale -->
+                <a href="#" target="_blank" class="social-link whatsapp-footer">WhatsApp En Ligne</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Zone des mentions légales et copyright tout en bas -->
+    <div class="footer-bottom">
+        <p>&copy; 2026 MOAYE SERVICE - Tous droits réservés.</p>
+        <p class="dev-credit">Développé par N'goran Koffi Michael </p>
+
+
+        <button id="backToTop" class="back-to-top-btn" aria-label="Retourner en haut">
+    <span class="arrow-up">↑</span>
+       </button>
+
+       <!-- BOUTON INTELLIGENT DE RETOUR EN HAUT -->
+<button id="backToTop" class="back-to-top-btn" aria-label="Retourner en haut">
+    <span class="arrow-up">↑</span>
+</button>
+
+    </div>
+</footer>
+
+    
+</body>
+
+   </html>

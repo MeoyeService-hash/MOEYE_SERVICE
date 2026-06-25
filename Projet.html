@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOAYE SERVICE — Nos Projets</title>
+    
+    <!-- Liaisons CSS épurées et ordonnées -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Projet.css">
+    
+    <!-- Scripts de pilotage interactif -->
+    <script src="javascript.js" defer></script>
+</head>
+<body>
+
+    <!-- ==========================================================================
+       BARRE DE NAVIGATION AVEC ALLUMAGE ORANGE EFFECTIF SUR PROJETS
+       ========================================================================== -->
+    <header id="mainHeader">
+        <div class="logo">
+            <a href="index.html">
+                <img src="image/logo.png" alt="Logo MOAYE SERVICE">
+            </a>
+        </div>
+        
+        <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <!-- On retire la classe active d'ici pour libérer l'accueil -->
+                <li><a href="index.html">Accueil</a></li>
+                <!-- Redirection vers votre future page dédiée d'expertises -->
+                <li><a href="Experstise.html">Expertises Agro-pastoral</a></li>
+                <!-- CORRECTION : C'est le mot Projets qui s'allume en orange sur cette page -->
+                <li><a href="Projet.html" class="active">Projets</a></li>
+                <!-- CORRECTION : Liens sortants vers l'index pour éviter de bloquer le client -->
+                <li><a href="index.html#partenaires">Nos partenaires</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- N'oubliez pas de placer vos balises <main> de galerie interactive juste ici -->
+
+</body>
+
+
+<main>
+    <section class="expertises-hero">
+        <div class="hero-expert-text">
+            <h1>Nos Réalisations</h1>
+            <p>MDécouvrez notre savoir-faire à travers nos chantiers BTP et nos exploitations agro-pastorales sur le terrain.</p>
+        </div>
+    </section>
+    
+    <section class="projets-gallery-section">
+        
+        <!-- BOUTONS DE FILTRES INTERACTIFS -->
+        <div class="projets-filters">
+            <button class="filter-btn active" data-filter="all">Tout voir</button>
+            <button class="filter-btn" data-filter="btp">Chantiers BTP</button>
+            <button class="filter-btn" data-filter="agro">Agro-pastoral</button>
+        </div>
+
+        <!-- LA GRILLE DE PHOTOS -->
+        <div class="projets-gallery-grid">
+            
+            <!-- Photo 1 : BTP -->
+            <div class="projet-gallery-item" data-category="btp">
+                <img src="image/ferme.jpg" alt="Construction de bâtiment d'élevage - BTP">
+                <div class="item-overlay">
+                    <span class="overlay-icon">🔍</span>
+                    <h3>Poulailler Industriel</h3>
+                    <p>Yamoussoukro • Génie Civil</p>
+                </div>
+            </div>
+
+            <!-- Photo 2 : Agro -->
+            <div class="projet-gallery-item" data-category="agro">
+                <img src="image/projet1.jpg" alt="Installation de bacs hors-sol - Pisciculture">
+                <div class="item-overlay">
+                    <span class="overlay-icon">🔍</span>
+                    <h3>Aquacole</h3>
+                    <p>Toumodi • Pisciculture</p>
+                </div>
+            </div>
+
+            <!-- Photo 3 : BTP -->
+            <div class="projet-gallery-item" data-category="btp">
+                <img src="image/ImageFerm.png" alt="Terrassement de site agricole - BTP">
+                <div class="item-overlay">
+                    <span class="overlay-icon">🔍</span>
+                    <h3>Ferme</h3>
+                    <p>Toumodi</p>
+                </div>
+            </div>
+
+            <!-- Photo 4 : Agro (Vous pouvez dupliquer ou mettre une autre image) -->
+            <div class="projet-gallery-item" data-category="agro">
+                <img src="image/photo.jpg" alt="Élevage et suivi sanitaire avicole">
+                <div class="item-overlay">
+                    <span class="overlay-icon">🔍</span>
+                    <h3>Suivi de Production</h3>
+                    <p>Abidjan • Aviculture</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CALQUE CACHÉ COMPOSANT LIGHTBOX (ZOOM PLEIN ÉCRAN ACCESSIBLE) -->
+    <div id="lightbox" class="lightbox-overlay" aria-hidden="true">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="Vue agrandie">
+            <p id="lightboxCaption"></p>
+        </div>
+    </div>
+</main>
+
+
+
+<footer class="main-footer">
+    <div class="footer-grid">
+        
+        <!-- Colonne 1 : À Propos de l'entreprise -->
+        <div class="footer-column footer-brand">
+            <h3>MOAYE <span class="accent-text">SERVICE</span></h3>
+            <p>Votre partenaire stratégique en Côte d'Ivoire. Nous mettons notre double compétence unique au service de la réussite de vos projets Agro-pastoraux et BTP.</p>
+        </div>
+
+        <!-- Colonne 2 : Liens de navigation rapide -->
+        <div class="footer-column">
+            <h4>Navigation</h4>
+            <ul class="footer-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#expertises">Nos Expertises</a></li>
+                <li><a href="index.html#partenaires">Partenaires</a></li>
+                <li><a href="#galerie">Galerie Projets</a></li>
+                <li><a href="contact.html">Demander un devis</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 3 : Informations de contact direct cliquables -->
+        <div class="footer-column">
+            <h4>Nos Coordonnées</h4>
+            <ul class="footer-contact-list">
+                <li>📍 <span>Toumodi</span></li>
+                <li>🕒 <span>Lun - Ven : 08h00 - 17h00</span></li>
+                <li>📞 <a href="tel:+225 +225 00 00 00 00 00 ">+225 0709732358</a></li>
+                <li>✉️ <a href="mailto:contact@moayeservice.com">contact@moayeservice.com</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 4 : Réseaux sociaux & Action Directe -->
+        <div class="footer-column">
+            <h4>Suivez-nous</h4>
+            <div class="footer-socials">
+                <a href="#" class="social-link">Facebook</a>
+                <!-- Lien direct WhatsApp qui utilise votre variable globale -->
+                <a href="#" target="_blank" class="social-link whatsapp-footer">WhatsApp En Ligne</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Zone des mentions légales et copyright tout en bas -->
+    <div class="footer-bottom">
+        <p>&copy; 2026 MOAYE SERVICE - Tous droits réservés.</p>
+        <p class="dev-credit">Développé par N'goran Koffi Michael </p>
+
+
+        <button id="backToTop" class="back-to-top-btn" aria-label="Retourner en haut">
+    <span class="arrow-up">↑</span>
+       </button>
+
+       <!-- BOUTON INTELLIGENT DE RETOUR EN HAUT -->
+<button id="backToTop" class="back-to-top-btn" aria-label="Retourner en haut">
+    <span class="arrow-up">↑</span>
+</button>
+
+    </div>
+</footer>
+
+
+
+
+    
+</body>
+
+</html>

@@ -1,0 +1,1756 @@
+
+@import url('https://googleapis.com');
+
+:root {
+    --bg-creme: #FBF9F4;         /* 60% : Fond général doux et organique */
+    --text-dark: #111827;        /* Couleur de police principale */
+    --vert-primary: #1B4332;     /* 30% : Identité institutionnelle (Agro/BTP) */
+    --vert-light: #40916C;       /* Teinte secondaire pour transitions et badges */
+    --orange-action: #D97706;    /* 10% : Couleur d'appel à l'action contrastante */
+    --white: #FFFFFF;
+    --radius-smooth: 16px;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif; /* Application de la nouvelle police */
+    scroll-behavior: smooth;
+}
+
+
+/* ==========================================================================
+   STRUCTURE GLOBALE & CONFIGURATION DU COMPORTEMENT DU BODY
+   ========================================================================== */
+body {
+    background-color: var(--bg-creme);
+    color: var(--text-dark);
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden; 
+    -webkit-overflow-scrolling: touch; /* Défilement fluide garanti sur iOS/iPhone */
+}
+
+/* ==========================================================================
+   BARRE DE NAVIGATION ESCAMOTABLE & ADAPTATIVE (HEADER)
+   ========================================================================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%; /* Augmentation de l'espace interne pour laisser respirer le menu */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(17, 24, 39, 0.4); /* Léger fond sombre au démarrage pour protéger le menu */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+/* ==========================================================================
+   CORRECTEUR ALIGNEMENT MENU MOBILE (LOGO À GAUCHE, TROIS TRAITS À DROITE)
+   ========================================================================== */
+@media (max-width: 768px) {
+    
+    /* Force le header à distribuer l'espace aux deux extrémités */
+    header {
+        display: flex !important;
+        flex-direction: row !important; /* Force l'alignement sur une seule ligne horizontale */
+        justify-content: space-between !important; /* Pousse le logo à gauche et les traits à droite */
+        align-items: center !important;
+        padding: 15px 20px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Supprime l'espace invisible de la balise nav qui bloquait le milieu */
+    header nav {
+        display: contents; /* Annule l'encombrement de la boîte nav sur mobile */
+    }
+
+    /* Le bouton à trois traits s'aligne de lui-même à l'extrême droite */
+    .menu-toggle {
+        display: flex !important;
+        margin-left: auto; /* Sécurité : repousse le bouton au maximum vers la droite */
+    }
+}
+
+
+
+/* FOND SOMBRE AU DÉFILEMENT (Sticky effect géré par JS) */
+header.scrolled {
+    background-color: rgba(10, 20, 15, 0.95); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* Sécurité pour transparence Safari/iPhone */
+    padding: 15px 8%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* CLASSE DE MASQUAGE SMART : Propulse le menu en dehors de l'écran vers le haut */
+header.nav-hidden {
+    transform: translateY(-100%) !important;
+}
+
+header .logo a img {
+    height: 50px;
+    border-radius: 10px;
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+header.scrolled .logo a img {
+    height: 42px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--orange-action);
+}
+@media (max-width: 768px) {
+
+    /* CONFIGURATION DU RIDEAU MOBILE TACTILE NETTOYÉ */
+    .nav-links {
+        position: fixed;
+        top: -100vh; 
+        left: 0;
+        width: 100%;
+        height: auto;
+        background-color: rgba(10, 20, 15, 0.98); /* Votre fond sombre premium */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        flex-direction: column !important; 
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+        gap: 25px !important;
+        z-index: 1050;
+        
+        /* CORRECTION CRITIQUE : Suppression complète du trait blanc horizontal */
+        border-bottom: none !important; 
+    }
+
+    /* Sécurité : Vérifiez également que le header scrolled ne force pas de bordure sur mobile */
+    header.scrolled {
+        border-bottom: none !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important; /* On remplace le trait par une ombre douce */
+    }
+}
+
+
+/* ==========================================================================
+   BOUTON MENU HAMBURGER (TROIS TRAITS - MOBILE ONLY)
+   ========================================================================== */
+.menu-toggle {
+    display: none; /* Masqué par défaut sur les ordinateurs */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.menu-toggle .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+/* ==========================================================================
+   EFFET HOVER ET INTERACTION SUR LE MENU HAMBURGER (TROIS TRAITS)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px !important;
+    }
+    
+    header.scrolled {
+        padding: 15px 20px !important;
+    }
+
+    /* Le bouton hamburger à trois traits devient visible sur mobile */
+    .menu-toggle {
+        display: flex;
+    }
+
+    /* TRANSFORMATION DES NAV-LINKS EN RIDEAU MOBILE TACTILE HAUT DE GAMME */
+    .nav-links {
+        position: fixed;
+        top: -100vh; /* Poussé et masqué en dehors de l'écran vers le haut au départ */
+        left: 0;
+        width: 100%;
+        height: auto;
+        background-color: rgba(10, 20, 15, 0.98); /* Fond rideau très sombre et opaque */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        flex-direction: column !important; /* Empilement vertical strict des rubriques */
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+        gap: 25px !important;
+        z-index: 1050;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* ÉTAT DÉPLOYÉ : Quand on clique, le volet descend se caler sous la barre */
+    .nav-links.open-menu {
+        top: 72px; /* Ajustement précis de la hauteur sous le logo mobile */
+    }
+
+    .nav-links a {
+        font-size: 1.25rem !important; /* Agrandissement pour un clic facile au pouce */
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    /* ANIMATION INTERACTIVE : Les trois traits pivotent pour former un ✕ rouge/orange */
+    .menu-toggle.toggle-active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+        background-color: var(--orange-action);
+    }
+    .menu-toggle.toggle-active .bar:nth-child(2) {
+        opacity: 0; /* Le trait central s'efface */
+    }
+    .menu-toggle.toggle-active .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+        background-color: var(--orange-action);
+    }
+}
+
+
+/* ==========================================================================
+   MENU HAMBURGER UNIVERSEL (TROIS TRAITS RESPONSIVE)
+   ========================================================================== */
+
+/* Caché par défaut sur les ordinateurs */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.menu-toggle .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #FFFFFF; /* Traits blancs pour trancher sur l'image */
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Changement de couleur des traits quand le menu devient noir au scroll */
+header.scrolled .menu-toggle .bar {
+    background-color: #FFFFFF;
+}
+
+/* ==========================================================================
+   ADAPTATION DU MENU SUR TOUS LES PETITS TÉLÉPHONES (< 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex; /* Les trois traits apparaissent sur mobile */
+    }
+
+    /* Le menu se transforme en volet mobile masqué en haut par défaut */
+    .nav-links {
+        position: fixed;
+        top: -100vh; /* Poussé complètement en dehors de l'écran vers le haut */
+        left: 0;
+        width: 100%;
+        height: auto;
+        background-color: rgba(10, 20, 15, 0.98); /* Fond sombre premium */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+        gap: 25px !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1050;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* ÉTAT ACTIF : Quand on clique, le menu glisse vers le bas et s'affiche */
+    .nav-links.open-menu {
+        top: 80px; /* S'aligne parfaitement juste en dessous de la barre fixe */
+    }
+
+    .nav-links a {
+        font-size: 1.3rem !important; /* Plus grand sur mobile pour faciliter le clic au doigt */
+    }
+
+    /* ANIMATION INTERACTIVE : Transformation des trois traits en une croix (✕) */
+    .menu-toggle.toggle-active .bar:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+        background-color: var(--orange-action);
+    }
+    .menu-toggle.toggle-active .bar:nth-child(2) {
+        opacity: 0; /* Le trait du milieu disparaît */
+    }
+    .menu-toggle.toggle-active .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+        background-color: var(--orange-action);
+    }
+}
+
+
+
+
+
+
+/* ==========================================================================
+   TITRES DE SECTIONS GÉNÉRAUX & RESPONSIVE
+   ========================================================================== */
+.section-title {
+    text-align: center; /* Aligné à gauche sur ordinateur pour le style asymétrique */
+    margin-bottom: 45px; /* Éloignement idéal pour laisser respirer le contenu */
+    padding: 0 15px; /* Évite les collisions de bordures sur iPhone 12 */
+    width: 100%;
+}
+
+.section-title h2 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--vert-primary);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    font-size: 1.1rem;
+    color: #4B5563;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   2. RESOLUTION DE L'ERREUR W3C LIGNE 284 (GALERIE IMAGES)
+   ========================================================================== */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center; 
+    transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   FUSION HERO SECTION : PLEIN ÉCRAN TOTAL IMMERSIF ET RESPONSIVE UNIVERSEL
+   ========================================================================== */
+.monheaderImage {
+    width: 100% !important;
+    height: 100vh !important;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 120px 8% 60px 8%;
+    box-sizing: border-box;
+    overflow: hidden; /* Coupe net l'image qui bouge */
+    background-color: #0A0F0C; 
+}
+
+/* LE MOTEUR EN ARRIÈRE-PLAN : L'image glisse de droite à gauche en toute autonomie */
+/* ==========================================================================
+   CADRAGE SECURE UNIVERSEL POUR PARALLAXE VERTICAL MOBILE
+   ========================================================================== */
+/* ==========================================================================
+   CADRAGE ET ANIMATION VERTICALE PURE CSS3 (100% COMPATIBLE SMARTPHONES)
+   ========================================================================== */
+.hero-bg-js {
+    position: absolute;
+    top: -15vh; /* Poussé vers le haut pour cacher le surplus de hauteur */
+    left: -5vw;
+    width: 110vw; /* 10% plus large pour éliminer les fuites blanches sur les côtés */
+    height: 130vh; /* 30% plus haute pour donner la matière nécessaire au déplacement vertical */
+    z-index: 1;
+    
+    background-image: linear-gradient(to right, rgba(10, 15, 12, 0.85) 35%, rgba(10, 15, 12, 0.2) 100%), 
+                      url('image/photo.jpg');
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    
+    /* FORCE LE MOUVEMENT AUTOMATIQUE EN CSS : 
+       Durée: 20 secondes, Fluide (linear), En boucle infinie (infinite), Va-et-vient (alternate) */
+    animation: travellingVerticalPurCSS 20s linear infinite alternate !important;
+    
+    /* Indispensable pour activer la carte graphique du téléphone et supprimer les saccades */
+    will-change: transform; 
+    transform: translate3d(0, 0, 0); 
+}
+
+/* CRÉATION DU MOUVEMENT EXCLUSIVEMENT VERTICAL (DU HAUT VERS LE BAS) */
+@keyframes travellingVerticalPurCSS {
+    0% {
+        transform: translate3d(0, 0, 0); /* Position de départ tout en haut */
+    }
+    100% {
+        transform: translate3d(0, 12vh, 0); /* Glisse proprement vers le bas de 12% de l'écran */
+    }
+}
+
+
+/* ==========================================================================
+   CORRECTIF SÉCURITÉ SPÉCIFIQUE POUR IPAD & TABLETTES (768px à 1024px)
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 1024px) {
+    
+    /* 1. AÉRATION DE LA BARRE DE NAVIGATION SUPÉRIEURE */
+    header {
+        padding: 20px 4% !important; /* Donne plus d'espace sur les côtés */
+    }
+
+    .nav-links {
+        gap: 15px !important; /* Resserre légèrement l'espace entre les mots pour éviter qu'ils ne coupent */
+    }
+
+    .nav-links a {
+        font-size: 0.95rem !important; /* Réduit la taille des lettres du menu pour une tenue parfaite en ligne */
+    }
+
+    /* 2. ÉLARGISSEMENT ET CONTRASTE DU TEXTE PRINCIPAL (HERO) */
+    .monheaderImage {
+        padding: 140px 6% 60px 6% !important;
+    }
+
+    .hero-text-container {
+        max-width: 90% !important; /* Permet au texte de prendre plus de largeur sur l'iPad au lieu d'être coincé à gauche */
+        text-align: left; /* Maintient l'alignement chic à gauche */
+    }
+
+    .monheaderImage h1 {
+        font-size: 2.6rem !important; /* Calibrage parfait du titre pour l'écran de l'iPad */
+        line-height: 1.3 !important;
+        margin-bottom: 20px !important;
+    }
+
+    .hero-description {
+        font-size: 1.1rem !important; /* Augmente légèrement la taille pour un confort de lecture optimal sur tablette */
+        line-height: 1.65 !important;
+        max-width: 100% !important; /* Le texte respire sur toute la largeur disponible */
+        margin-bottom: 35px !important;
+    }
+
+    /* 3. ALIGNEMENT DES BOUTONS SUR TABLETTE */
+    .hero-buttons-group {
+        display: flex !important;
+        flex-direction: row !important; /* Maintient les deux boutons côte à côte (Pas comme sur smartphone) */
+        gap: 20px !important;
+    }
+
+    .btn-cta {
+        padding: 14px 28px !important; /* Boutons légèrement plus compacts pour l'harmonie de l'iPad */
+        font-size: 0.9rem !important;
+    }
+}
+
+
+@keyframes defilementHorizontalLent {
+    0% { transform: scale(1.1) translateX(0); }
+    50% { transform: scale(1.1) translateX(-4%); }
+    100% { transform: scale(1.1) translateX(0); }
+}
+@media (max-width: 768px) {
+    .hero-bg-js {
+        width: 115%;
+        height: 110%;
+        top: -5%;
+        left: -5%;
+        /* Sur mobile, on remplace la souris par une micro-respiration automatique lente */
+        animation: respirationMobile 20s ease-in-out infinite alternate !important;
+    }
+    
+    @keyframes respirationMobile {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.06); }
+    }
+}
+/* ==========================================================================
+   STYLE ET PROTECTION DES TEXTES AU PREMIER PLAN
+   ========================================================================== */
+.hero-text-container {
+    position: relative;
+    z-index: 10; /* Reste fermement au premier plan */
+    width: 100%;
+    max-width: 850px;
+}
+
+
+.monheaderImage h1 {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    color: var(--white);
+    line-height: 1.25;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.orange-txt {
+    color: var(--orange-action);
+    font-weight: 800;
+}
+
+.hero-description {
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    color: #E5E7EB; /* Blanc cassé soyeux */
+    line-height: 1.65;
+    margin-bottom: 35px;
+    max-width: 700px;
+    font-weight: 500;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* GRROUPEMENT DES DEUX BOUTONS COMPATIBLES */
+.hero-buttons-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.btn-cta {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: var(--transition-smooth);
+    box-sizing: border-box;
+    height: 52px;
+}
+
+/* BOUTON ORANGE PLEIN */
+.btn-cta:not(.btn-cta-secondary) {
+    background-color: var(--orange-action);
+    color: var(--white) !important;
+    border: 2px solid transparent;
+    box-shadow: 0 8px 20px rgba(217, 119, 6, 0.35);
+}
+
+.btn-cta:not(.btn-cta-secondary):hover {
+    background-color: #B45309;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(217, 119, 6, 0.5);
+}
+
+/* BOUTON TRANSPARENT BORDURE BLANCHE */
+.btn-cta.btn-cta-secondary {
+    background-color: transparent !important;
+    color: var(--white) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+.btn-cta.btn-cta-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: #FFFFFF !important;
+    transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   ADAPTATION MOBILE COMPLÈTE (IPHONE 12)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .monheaderImage {
+        padding: 140px 24px 80px 24px !important;
+    }
+
+    .hero-text-container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .monheaderImage h1 {
+        font-size: 2.1rem !important;
+        line-height: 1.3;
+    }
+
+    .hero-buttons-group {
+        flex-direction: column !important; /* Aligne verticalement sur mobile */
+        width: 100%;
+        gap: 15px;
+    }
+
+    .btn-cta {
+        width: 100% !important; /* Boutons larges pour le pouce sur smartphone */
+    }
+}
+
+/* ==========================================================================
+   5. SECTION 1 : NOS DOMAINES D'EXPERTISE RESPONSIVE
+   ========================================================================== */
+.expertises-section {
+    padding: 80px 8% 50px 8%;
+    width: 100%;
+}
+
+.expertises-grid {
+    display: grid;
+    /* Gère l'adaptation automatique des colonnes sans casser le design */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 40px;
+}
+
+.expert-card {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: var(--radius-smooth);
+    border: 1px solid rgba(27, 67, 50, 0.04);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.01);
+    transition: var(--transition-smooth);
+}
+
+.expert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 35px rgba(27, 67, 50, 0.06);
+}
+
+.expert-card h3 {
+    color: var(--vert-primary);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.expert-card p {
+    color: #4B5563;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    line-height: 1.6; 
+}
+
+.btn-secondary {
+    text-decoration: none;
+    color: var(--vert-light);
+    font-weight: 600; 
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    color: var(--orange-action);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES : CODE CORRECTEUR POUR MOBILE & IPONHE 12 (< 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    
+    /* 1. Recentrement et calibrage des titres sur smartphone */
+    .section-title {
+        text-align: center; 
+        margin-bottom: 35px;
+        padding: 0 10px;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem !important; 
+        line-height: 1.3;
+    }
+
+    .section-title p {
+        font-size: 0.95rem !important;
+    }
+
+    /* 2. Pivot de la bannière Hero : Passe sur 1 seule colonne verticale */
+    .monheaderImage {
+        grid-template-columns: 1fr; 
+        text-align: center;
+        padding: 120px 24px 60px 24px;
+        gap: 30px;
+    }
+
+    .monheaderImage h1 {
+        font-size: 2.1rem !important; /* Réduction pour iPhone 12 */
+        line-height: 1.3;
+        margin: 0 auto 15px auto;
+    }
+
+    .monheaderImage p {
+        font-size: 1rem !important;
+        margin: 0 auto 25px auto;
+    }
+
+    .btn-cta {
+        width: 100%; /* Le bouton prend toute la largeur sur mobile pour le pouce */
+        text-align: center;
+    }
+
+    /* 3. Réduction des marges d'expertises sur petit écran */
+    .expertises-section {
+        padding: 60px 24px 40px 24px;
+    }
+
+    .expert-card {
+        padding: 30px 20px; /* Moins de vide interne sur mobile */
+    }
+}
+
+/* ==========================================================================
+   6. SECTION 2 : GALERIE EN MINIATURE (Preuve Sociale)
+   ========================================================================== */
+/* ==========================================================================
+   GALERIE INTERACTIVE : LISIBILITÉ AMÉLIORÉE ET VOILE DE TEXTE PROTECTEUR
+   ========================================================================== */
+.galerie-section {
+    padding: 80px 8%;
+    background-color: #FFFDF9;
+    width: 100%;
+}
+
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 35px;
+    flex-wrap: wrap; 
+}
+
+.btn-filter {
+    padding: 10px 24px;
+    border: 2px solid var(--vert-primary);
+    background: transparent;
+    color: var(--vert-primary);
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-filter.active, 
+.btn-filter:hover {
+    background-color: var(--vert-primary);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(27, 67, 50, 0.15);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: var(--radius-smooth);
+    overflow: hidden;
+    height: 250px;
+    
+    transition: var(--transition-smooth);
+}
+
+.gallery-item.hide {
+    display: none;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center; 
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08); 
+}
+
+/* ==========================================================================
+   CORRECTION CRITIQUE DE L'OVERLAY : EFFET OMBRAGE VISIBLE EN PERMANENCE
+   ========================================================================== */
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Positionne le titre en bas sur la zone marron stable */
+    padding: 25px 20px;
+    text-align: left; /* Alignement propre à gauche pour les longs titres */
+    box-sizing: border-box;
+    z-index: 2;
+    
+    /* SECRET DE LISIBILITÉ : Un dégradé noir transparent permanent au repos, 
+       qui s'intensifie légèrement en vert au survol pour créer l'effet pro. */
+   
+}
+
+/* Changement de couleur d'ambiance au survol de la carte */
+
+
+/* LE STYLE DU TEXTE ORANGE ET BLANC SÉCURISÉ CONTRE LES REFLETS */
+.gallery-overlay span,
+.gallery-overlay h3 {
+    color: var(--bg-creme) !important; /* Utilisation de votre orange d'appel à l'action officiel */
+    font-weight:200;
+    font-size: 0.5rem;
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+    margin: 0;
+    font-style: italic;
+    
+    /* Double ombre portée de sécurité pour isoler les lettres des zones de lumière */
+    
+    /* Amélioration de l'anti-crénelage pour supprimer l'effet de flou */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   7. SECTION 3 : POURQUOI NOUS CHOISIR ? RESPONSIVE
+   ========================================================================== */
+.why-us-section {
+    padding: 80px 8%;
+    width: 100%;
+}
+
+.why-us-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+
+.why-us-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+
+/* Cartes d'arguments avec la ligne orange à gauche (Règle des 10%) */
+.why-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: var(--radius-smooth);
+    border-left: 5px solid var(--orange-action);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.01);
+    transition: var(--transition-smooth);
+}
+
+/* Effet de soulèvement discret au survol de la carte d'argument */
+.why-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(27, 67, 50, 0.06);
+}
+
+.why-card h4 {
+    color: var(--vert-primary);
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.why-card p {
+    color: #555555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES : CORRECTIONS TEXTURES POUR TÉLÉPHONES (< 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Ajustement des espaces de la galerie sur mobile */
+    .galerie-section {
+        padding: 60px 24px 40px 24px;
+    }
+    
+    .gallery-filters {
+        gap: 10px; /* Resserre les boutons pour qu'ils tiennent sur deux lignes propres */
+        margin-bottom: 25px;
+    }
+
+    .btn-filter {
+        padding: 8px 18px; /* Boutons légèrement plus compacts au doigt */
+        font-size: 0.9rem;
+    }
+
+    .gallery-grid {
+        gap: 20px; /* Réduit l'espace vide entre les photos sur mobile */
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Optimise la largeur */
+    }
+
+    .gallery-item {
+        height: 220px; /* Légère réduction de hauteur pour équilibrer l'écran mobile */
+    }
+
+    /* Ajustement de la section Pourquoi nous choisir */
+    .why-us-section {
+        padding: 60px 24px;
+    }
+
+    .why-us-grid {
+        gap: 20px; /* Aligne les blocs verticalement de façon serrée et propre */
+    }
+
+    .why-card {
+        padding: 25px 20px;
+    }
+}
+
+
+/* ==========================================================================
+   REFONTE CARROUSEL : FOND NET ET LOGOS EN CARTES BLANCHES LUMINEUSES
+   ========================================================================== */
+
+/* ==========================================================================
+   8. MODULE PARTENAIRES STRATÉGIQUES HORIZONTAL ET RESPONSIVE UNIVERSEL
+   ========================================================================== */
+/* ==========================================================================
+   13. CARROUSEL DES PARTENAIRES : SENS INVERSÉ ET DÉFILEMENT INFINI CSS
+   ========================================================================== */
+.partenaires-slider-section {
+    padding: 200px 8% 100px 8%; 
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.02);
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    
+    /* Image de fond propre avec voile de protection translucide léger */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%), 
+                      url("image/imageF.png");
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Titre principal centré de la section */
+.section-title-center {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-title-center h2 {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    color: var(--vert-primary);
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8); 
+    line-height: 1.2;
+}
+
+.decor-leaf {
+    font-size: 1.3rem;
+    margin-top: 8px;
+    display: inline-block;
+}
+
+/* Conteneur principal masquant les éléments en dehors de l'écran */
+.slider-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow: hidden; /* Coupe net tout débordement à gauche et à droite */
+    padding: 30px 0;
+    box-sizing: border-box;
+}
+
+/* La piste de logos animée */
+.logos-track {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* Écartement fixe et constant entre vos 8 cartes */
+    width: max-content;
+    
+    /* Animation fluide continue de 25 secondes */
+    animation: defilementGaucheDroite 25s linear infinite !important;
+    will-change: transform;
+}
+
+/* INTERACTION SMART : Fige le carrousel au survol pour faciliter le clic */
+.slider-container:hover .logos-track {
+    animation-play-state: paused !important;
+}
+
+/* Les petites boîtes blanches conteneurs de logos */
+.logo-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 220px; 
+    height: 110px; 
+    background-color: #FFFFFF; 
+    border-radius: 12px; 
+    padding: 15px 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); 
+    transition: var(--transition-smooth);
+    overflow: hidden !important;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Micro-soulèvement de la carte blanche */
+.logo-slide:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 35px rgba(27, 67, 50, 0.12); 
+}
+
+.logo-slide a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sécurité absolue de dimensionnement des images de logos */
+.logo-slide img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important; /* Pas de déformation graphique de vos logos */
+    opacity: 0.95; 
+    transition: var(--transition-smooth);
+}
+
+.logo-slide img:hover {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   MOTEUR CSS DU SENS DE ROTATION INVERSÉ (DE LA GAUCHE VERS LA DROITE)
+   ========================================================================== */
+@keyframes defilementGaucheDroite {
+    0% {
+        /* Démarre décalé à la moitié de la piste à gauche */
+        transform: translate3d(-50%, 0, 0); 
+    }
+    100% {
+        /* Avance continuellement vers le point zéro à droite */
+        transform: translate3d(0, 0, 0); 
+    }
+}
+
+/* SUPPRESSION DÉFINITIVE ET SÉCURISÉE DES ANCIENS BOUTONS DOTS INTERNES */
+.slider-dots, 
+#dotsContainer {
+    display: none !important;
+}
+
+
+@media (max-width: 768px) {
+    
+    .partenaires-slider-section {
+        /* CORRECTIF : On réduit drastiquement le padding haut (de 60px à 15px)
+           pour propulser le titre tout en haut et dégager entièrement votre visage */
+        padding: 15px 15px 40px 15px !important; 
+        box-sizing: border-box !important;
+    }
+
+    .section-title-center {
+        margin-bottom: 10px !important; /* Rapproche le titre du haut de l'écran */
+    }
+
+    .partenaires-slider-section h2 {
+        font-size: 1.6rem !important; /* Réduction de la taille pour tenir sur deux lignes compactes */
+        line-height: 1.2 !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Décale la petite feuille décorative pour qu'elle ne cache plus le micro */
+    .decor-leaf {
+        font-size: 1rem !important;
+        margin-top: 2px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .slider-container {
+        /* Pousse les cartes blanches vers le bas (60px) pour les installer proprement 
+           au niveau de vos bras et du dossier bleu, libérant ainsi tout votre buste */
+        margin-top: 60px !important; 
+        padding: 10px 0 !important;
+    }
+
+    /* Maintien de la fluidité de la piste de logos sur smartphone */
+    .logos-track {
+        gap: 20px !important;
+        animation-duration: 18s !important; /* Vitesse adaptée pour écran tactile */
+    }
+
+    .logo-slide {
+        min-width: 155px !important;
+        width: 155px !important;
+        height: 80px !important; /* Cartes légèrement plus compactes pour un rendu parfait */
+        padding: 8px 12px !important;
+        border-radius: 8px !important;
+    }
+}
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   DESIGN ASYMÉTRIQUE DU FORMULAIRE DE PROJET HAUT DE GAMME
+   ========================================================================== */
+/* ==========================================================================
+   9. STRUCTURE ASYMÉTRIQUE DU FORMULAIRE DE PROJET (ORDINATEUR)
+   ========================================================================== */
+.contact-section {
+    padding: 140px 8% 80px 8%;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr; /* Double colonne parfaite */
+    gap: 60px;
+    align-items: start;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contact-intro-box {
+    position: sticky;
+    top: 140px;
+    text-align: left;
+}
+
+.contact-intro-box h2 {
+    font-size: 2.5rem;
+    color: var(--vert-primary);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    word-break: break-word; /* Protection contre les coupures de mots */
+}
+
+.intro-lead {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--orange-action);
+    margin-bottom: 10px;
+}
+
+.contact-intro-box p {
+    font-size: 1.1rem;
+    color: #4B5563;
+    line-height: 1.6;
+}
+
+/* Bloc de saisie compact à droite */
+.contact-wrapper {
+    width: 100%;
+    max-width: 580px;
+    margin-left: auto;
+    background-color: var(--white);
+    padding: 40px 30px;
+    border-radius: var(--radius-smooth);
+    box-shadow: 0 15px 40px rgba(27, 67, 50, 0.04);
+    border: 1px solid rgba(27, 67, 50, 0.06);
+    box-sizing: border-box;
+}
+
+.form-section-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--vert-primary);
+    border-bottom: 2px solid rgba(27, 67, 50, 0.08);
+    padding-bottom: 8px;
+    margin: 35px 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-section-title:first-of-type { 
+    margin-top: 0; 
+}
+
+.form-block {
+    margin-bottom: 22px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #FAFAFA;
+    border: 1px solid #F1F1F1;
+    transition: var(--transition-smooth);
+    box-sizing: border-box;
+}
+
+/* ÉTAT ALERTE ROSE JOTFORM REPRODUIT */
+.form-block.field-error {
+    background-color: #FFF5F5 !important;
+    border: 1px solid #E53E3E !important;
+    border-left: 5px solid #E53E3E !important;
+}
+
+.block-label {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--vert-primary);
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.required-star {
+    color: #E53E3E;
+    margin-left: 3px;
+    font-weight: bold;
+}
+
+.form-single-input input, 
+.form-single-input select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #D1D5DB;
+    background-color: var(--white);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text-dark);
+    outline: none;
+    transition: var(--transition-smooth);
+    box-sizing: border-box;
+}
+
+.form-single-input input:focus, 
+.form-single-input select:focus {
+    border-color: var(--vert-light);
+    box-shadow: 0 0 0 4px rgba(64, 145, 108, 0.15);
+}
+
+.form-block.field-error input, 
+.form-block.field-error select {
+    border-color: #E53E3E !important;
+}
+
+.error-message {
+    display: none;
+    color: #E53E3E;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+.form-block.field-error .error-message { 
+    display: block; 
+}
+
+.radio-checkbox-group { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 14px; 
+}
+
+.radio-checkbox-group.inline-options { 
+    display: flex;
+    flex-direction: row; 
+    gap: 25px; 
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.98rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.option-label input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--vert-light);
+    cursor: pointer;
+    flex-shrink: 0; /* Empêche le bouton rond de se déformer si le texte prend plusieurs lignes */
+}
+
+.inline-text-input {
+    border: none !important;
+    border-bottom: 2px solid #D1D5DB !important;
+    border-radius: 0 !important;
+    padding: 2px 6px !important;
+    width: 200px !important;
+    font-size: 0.95rem !important;
+    background-color: transparent !important;
+    box-sizing: border-box;
+}
+
+.inline-text-input:focus {
+    border-bottom-color: var(--orange-action) !important;
+    box-shadow: none !important;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--vert-primary);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(27, 67, 50, 0.15);
+    transition: var(--transition-smooth);
+    box-sizing: border-box;
+}
+
+.btn-submit:hover {
+    background-color: var(--orange-action);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(217, 119, 6, 0.3);
+}
+
+/* ==========================================================================
+   CORRECTIONS DE COMPATIBILITÉ UNIVERSELLE POUR TOUS LES TÉLÉPHONES
+   ========================================================================== */
+@media (max-width: 968px) {
+    .contact-section { 
+        grid-template-columns: 1fr; /* Bascule immédiate sur 1 seule colonne verticale */
+        gap: 40px; 
+        padding: 100px 24px 60px 24px !important; 
+    }
+    
+    .contact-intro-box { 
+        position: static; 
+        text-align: center; 
+        width: 100%;
+    }
+    
+    .contact-intro-box h2 { 
+        font-size: 2rem !important; 
+    }
+    
+    .contact-wrapper { 
+        margin: 0 auto; 
+        padding: 30px 20px; 
+        max-width: 100%;
+    }
+    
+    /* Force les options alignées à plat (Radios/Checkboxes) à se ranger verticalement sur mobile */
+    .radio-checkbox-group.inline-options { 
+        flex-direction: column !important; 
+        gap: 14px !important; 
+    }
+    
+    /* CORRECTIF DE SÉCURITÉ IPHONE : Force la taille à 16px pour interdire le zoom forcé d'iOS */
+    .form-single-input input, 
+    .form-single-input select,
+    .inline-text-input {
+        font-size: 16px !important; 
+    }
+    
+    .inline-text-input { 
+        width: 100% !important; 
+        margin-top: 5px; 
+    }
+    
+    /* Empilement propre de la case à cocher "Autre" */
+    #proj-autre-option { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 8px; 
+    }
+    
+    .form-block {
+        padding: 15px;
+    }
+}
+
+
+/* ==========================================================================
+   DESIGN COMPATIBLE ET RESPONSIVE DU FOOTER (PIED DE PAGE)
+   ========================================================================== */
+/* ==========================================================================
+   7. PIED DE PAGE PROFESSIONNEL ET ADAPTATIF (MAIN FOOTER)
+   ========================================================================== */
+.main-footer {
+    background-color: #0B1E14; /* Vert ultra-profond pour un rendu haut de gamme */
+    color: #E5E7EB; /* Texte en blanc cassé très lisible */
+    padding: 80px 8% 20px 8%;
+    border-top: 3px solid var(--orange-action); /* Ligne orange de rappel de marque (10%) */
+    width: 100%;
+    box-sizing: border-box; /* Sécurité contre le débordement horizontal */
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 1fr 1fr; /* Structure équilibrée en 4 colonnes sur PC */
+    gap: 50px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 50px;
+    box-sizing: border-box;
+}
+
+.footer-column {
+    box-sizing: border-box;
+}
+
+/* Style dédié à l'intégration de l'image de votre logo */
+.logo-footer {
+    margin-bottom: 20px;
+}
+
+.logo-footer img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.footer-column h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.footer-column h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-column p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #9CA3AF; /* Gris atténué pour le paragraphe d'introduction */
+}
+
+/* Listes de liens du footer */
+.footer-links, 
+.footer-contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links li,
+.footer-contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-links a, 
+.footer-contact-list a {
+    color: #9CA3AF;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    display: inline-block;
+}
+
+.footer-links a:hover, 
+.footer-contact-list a:hover {
+    color: var(--orange-action); /* S'allume en orange au survol */
+    transform: translateX(4px); /* Petit décalage dynamique fluide sur PC */
+}
+
+.footer-contact-list span {
+    color: #9CA3AF;
+    font-size: 0.95rem;
+}
+
+/* Zone réseaux sociaux */
+.footer-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-link {
+    color: #9CA3AF;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    display: inline-block;
+}
+
+.social-link:hover {
+    color: var(--white);
+}
+
+.whatsapp-footer {
+    color: #25D366 !important; /* Force la couleur verte officielle WhatsApp */
+    font-weight: 700;
+}
+
+.whatsapp-footer:hover {
+    text-shadow: 0 0 10px rgba(37, 211, 102, 0.4);
+}
+
+/* Barre de Copyright inférieure */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+    font-size: 0.85rem;
+    color: #6B7280;
+}
+
+.dev-credit {
+    font-style: italic;
+}
+
+/* ==========================================================================
+   ADAPTATION PROGRESSIVE POUR TABLETTES (ÉCRANS MOYENS < 968px)
+   ========================================================================== */
+@media (max-width: 968px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr; /* Passe proprement à 2 colonnes sur tablette */
+        gap: 40px;
+    }
+}
+
+/* ==========================================================================
+   ADAPTATION STRICTE POUR TOUS LES TÉLÉPHONES PORTABLES (< 640px)
+   ========================================================================== */
+@media (max-width: 640px) {
+    .main-footer {
+        padding: 60px 24px 20px 24px !important; /* Plus d'espace interne sur l'écran du smartphone */
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr !important; /* Empilement vertical complet et stable */
+        gap: 40px;
+        text-align: center; /* Recentre l'intégralité des textes sur smartphone */
+    }
+
+    .footer-column h4 {
+        margin-bottom: 15px;
+    }
+
+    /* Recentrement horizontal de toutes les listes de liens et icônes sur mobile */
+    .footer-links, 
+    .footer-contact-list {
+        align-items: center;
+    }
+
+    .footer-links li,
+    .footer-contact-list li {
+        justify-content: center;
+    }
+
+    /* Désactive l'effet de décalage horizontal au survol sur mobile pour éviter les bugs tactiles */
+    .footer-links a:hover, 
+    .footer-contact-list a:hover {
+        transform: none !important;
+    }
+
+    /* Alignement vertical strict de la barre de copyright sur smartphone */
+    .footer-bottom {
+        flex-direction: column !important; 
+        gap: 12px;
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+/* ==========================================================================
+   ANIMATIONS D'APPARITION PROGRESSIVE POUR TOUT LE CONTENU (GLOBAL)
+   ========================================================================== */
+
+.js-reveal {
+    opacity: 0;
+    transform: translateY(50px); /* Poussé vers le bas de 50px */
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform; /* Optimisation pour iPhone 12 / Écrans fluides */
+}
+
+/* L'état allumé et visible dès que la section entre dans l'écran */
+.js-reveal.reveal-active {
+    opacity: 1;
+    transform: translateY(0); /* Reprend sa place normale */
+}
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   BOUTON DE RETOUR EN HAUT (BACK TO TOP URA-PRO)
+   ========================================================================== */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px; /* Aligné sur le côté droit de l'ordinateur et de l'iPhone */
+    width: 50px;
+    height: 50px;
+    background-color: var(--orange-action); /* Votre orange officiel */
+    color: var(--white); /* Flèche blanche */
+    border: none;
+    border-radius: 50%; /* Forme un cercle parfait */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1500; /* Reste au-dessus de toutes vos sections */
+    box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+    
+    /* ÉTAT INITIAL : Complètement masqué et transparent tout en haut du site */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.arrow-up {
+    font-size: 1.4rem;
+    font-weight: 800;
+    transition: transform 0.3s ease;
+}
+
+/* EFFET INTERACTIF AU SURVOL */
+.back-to-top-btn:hover {
+    background-color: #B45309; /* Un orange un peu plus soutenu */
+    transform: translateY(-5px); /* Le bouton se soulève de 5px */
+    box-shadow: 0 8px 20px rgba(217, 119, 6, 0.5);
+}
+
+.back-to-top-btn:hover .arrow-up {
+    transform: translateY(-3px); /* La petite flèche blanche monte légèrement */
+}
+
+/* CLASSE DYNAMIQUE INJECTÉE PAR LE JS : Rend le bouton visible au défilement */
+.back-to-top-btn.show-btn {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* ADAPTATION SMARTPHONE (IPHONE 12 / RESPONSIVE) */
+@media (max-width: 768px) {
+    .back-to-top-btn {
+        bottom: 20px;
+        right: 20px; /* Plus serré sur les bords pour les téléphones */
+        width: 44px;
+        height: 44px; /* Un tout petit peu plus compact sur mobile */
+    }
+    
+    .arrow-up {
+        font-size: 1.2rem;
+    }
+    
+    /* Désactive l'effet de soulèvement au survol pour éviter les bugs tactiles */
+    .back-to-top-btn:hover {
+        transform: none !important;
+    }
+}
+
+
+
+
+/* ==========================================================================
+   BOUTON DE RETOUR EN HAUT (APPARITION À L'ARRÊT DU SCROLL)
+   ========================================================================== */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px; 
+    width: 50px;
+    height: 50px;
+    background-color: var(--orange-action); /* Votre orange officiel */
+    color: var(--white); 
+    border: none;
+    border-radius: 50%; /* Cercle parfait comme sur votre image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1500; 
+    box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+    
+    /* ÉTAT INITIAL : Caché par défaut */
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.arrow-up {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+/* CLASSE INJECTÉE PAR LE JS : Le bouton apparaît dès que le scroll s'arrête */
+.back-to-top-btn.show-btn {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.back-to-top-btn:hover {
+    background-color: #B45309;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVE TOUS TÉLÉPHONES (IPHONE 12) */
+@media (max-width: 768px) {
+    .back-to-top-btn {
+        bottom: 20px;
+        right: 20px; 
+        width: 46px;
+        height: 46px; 
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,170 @@
+ <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MOeye Service </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Experstise.css">
+    
+    <script src="javascript.js" defer></script>
+    <script src="rendevous.js" defer></script>
+    <script src="formulaire.js" defer></script>
+</head>
+
+<body>
+<header id="mainHeader">
+    <div class="logo">
+        <a href="index.html">
+            <img src="image/logo.png" alt="Logo MOAYE SERVICE">
+        </a>
+    </div>
+    
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+    
+    <nav>
+        <!-- CORRECTION : Ajout de id="navLinks" et passage du P de partenaires en minuscule -->
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="Experstise.html">Expertises Agro-pastoral</a></li>
+            <li><a href="Projet.html">Projets</a></li>
+            <li><a href="index.html#partenaires">Nos partenaires</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <!-- 1. BANNIÈRE D'ACCUEIL DU PÔLE EXPERTISES -->
+    <section class="expertises-hero">
+        <div class="hero-expert-text">
+            <h1>Nos Expertises Métiers</h1>
+            <p>MOAYE SERVICE met son ingénierie et sa rigueur technique au service du développement durable de vos projets agro-pastoraux et chantiers de construction.</p>
+        </div>
+    </section>
+
+    <!-- 2. LA GRILLE DES 3 GRANDS PÔLES PROFESSIONNELS -->
+    <section class="expertises-detail-section" id="expertises-liste">
+        <div class="section-title">
+            <h2>Des Solutions Sur-Mesure</h2>
+            <p>Découvrez nos domaines d'intervention pour sécuriser vos investissements en Côte d'Ivoire.</p>
+        </div>
+
+        <div class="expertises-main-grid">
+            
+            <!-- PÔLE 1 : ÉTUDES & INGENIERIE -->
+            <div class="expert-main-card">
+                <div class="card-icon">📊</div>
+                <h3>Pôle Études & Ingénierie Financière</h3>
+                <p class="card-lead">Sécurisez la rentabilité de votre future exploitation agricole ou de votre projet immobilier.</p>
+                <ul class="card-bullet-list">
+                    <li>Rédaction de Business Plans complets pour banques et investisseurs</li>
+                    <li>Analyses de rentabilité financière et calculs de ROI stricts</li>
+                    <li>Études de faisabilité technique (Pisciculture hors-sol, Aviculture, Élevage bovin)</li>
+                </ul>
+                <a href="contact.html" class="btn-card-action" target="_blank">Demander une étude</a>
+            </div>
+
+            <!-- PÔLE 2 : AMÉNAGEMENT & CONSTRUCTIONS -->
+            <div class="expert-main-card">
+                <div class="card-icon">🏗️</div>
+                <h3>Pôle Aménagement & Infrastructures BTP</h3>
+                <p class="card-lead">De la terre brute à une infrastructure clé en main moderne et fonctionnelle.</p>
+                <ul class="card-bullet-list">
+                    <li>Aménagement complet de fermes modernes et reprofilage de parcelles</li>
+                    <li>Construction de bâtiments d'élevage (poulaillers ventilés, bergeries, porcheries)</li>
+                    <li>Génie civil, maçonnerie et infrastructures de stockage durables</li>
+                </ul>
+                <a href="contact.html" class="btn-card-action" target="_blank">Lancer un chantier</a>
+            </div>
+
+            <!-- PÔLE 3 : COACHING & ACCOMPAGNEMENT -->
+            <div class="expert-main-card">
+                <div class="card-icon">🌱</div>
+                <h3>Pôle Formation & Suivi Technique</h3>
+                <p class="card-lead">Nous ne vous laissons pas seul. Nous formons vos équipes et suivons votre production.</p>
+                <ul class="card-bullet-list">
+                    <li>Coaching personnalisé et suivi sanitaire régulier de vos animaux</li>
+                    <li>Analyses professionnelles des sols et formulation d'aliments de ferme</li>
+                    <li>Formations spécifiques pour ouvriers agricoles et gérants de fermes</li>
+                </ul>
+                <a href="contact.html" class="btn-card-action" target="_blank">Planifier une formation</a>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+
+<footer class="main-footer">
+    <div class="footer-grid">
+        
+        <!-- Colonne 1 : À Propos de l'entreprise -->
+        <div class="footer-column footer-brand">
+            <h3>MOAYE <span class="accent-text">SERVICE</span></h3>
+            <p>Votre partenaire stratégique en Côte d'Ivoire. Nous mettons notre double compétence unique au service de la réussite de vos projets Agro-pastoraux et BTP.</p>
+        </div>
+
+        <!-- Colonne 2 : Liens de navigation rapide -->
+        <div class="footer-column">
+            <h4>Navigation</h4>
+            <ul class="footer-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#expertises">Nos Expertises</a></li>
+                <li><a href="#partenaires">Partenaires</a></li>
+                <li><a href="#galerie">Galerie Projets</a></li>
+                <li><a href="#demande-projet">Demander un devis</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 3 : Informations de contact direct cliquables -->
+        <div class="footer-column">
+            <h4>Nos Coordonnées</h4>
+            <ul class="footer-contact-list">
+                <li>📍 <span>Toumodi</span></li>
+                <li>🕒 <span>Lun - Ven : 08h00 - 17h00</span></li>
+                <li>📞 <a href="tel:+225 +225 00 00 00 00 00 ">+225 0709732358</a></li>
+                <li>✉️ <a href="mailto:contact@moayeservice.com">contact@moayeservice.com</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 4 : Réseaux sociaux & Action Directe -->
+        <div class="footer-column">
+            <h4>Suivez-nous</h4>
+            <div class="footer-socials">
+                <a href="#" class="social-link">Facebook</a>
+                <!-- Lien direct WhatsApp qui utilise votre variable globale -->
+                <a href="#" target="_blank" class="social-link whatsapp-footer">WhatsApp En Ligne</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Zone des mentions légales et copyright tout en bas -->
+    <div class="footer-bottom">
+        <p>&copy; 2026 MOAYE SERVICE - Tous droits réservés.</p>
+        <p class="dev-credit">Développé par N'goran Koffi Michael </p>
+
+
+        <button id="backToTop" class="back-to-top-btn" aria-label="Retourner en haut">
+    <span class="arrow-up">↑</span>
+       </button>
+
+       <!-- BOUTON INTELLIGENT DE RETOUR EN HAUT -->
+<button id="backToTop" class="back-to-top-btn" aria-label="Retourner en haut">
+    <span class="arrow-up">↑</span>
+</button>
+
+    </div>
+</footer>
+
+
+
+    
+</body>
+

@@ -1,0 +1,152 @@
+
+       
+
+/* 1. Bannière d'accueil de la page d'expertises */
+.expertises-hero {
+    height: 45vh;
+    min-height: 350px;
+    width: 100%;
+    background-color: #07110C; /* Parfaitement synchronisé avec la charte de démarrage */
+    
+    /* Dégradé de protection et image */
+    background-image: linear-gradient(rgba(27, 67, 50, 0.9), rgba(27, 67, 50, 0.8)), 
+                      url("image/photo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 0 8%;
+    box-sizing: border-box;
+}
+
+.hero-expert-text h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: var(--white);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.hero-expert-text p {
+    font-size: 1.15rem;
+    color: #E5E7EB;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+/* 2. Zone de contenu de la grille */
+.expertises-detail-section {
+    padding: 80px 8%;
+    background-color: var(--bg-creme); /* Le fond crème doux de votre 60% se déploie ici */
+    box-sizing: border-box;
+}
+
+.expertises-main-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+/* Les grandes cartes blanches d'expertises */
+.expert-main-card {
+    background-color: var(--white);
+    padding: 40px 30px;
+    border-radius: var(--radius-smooth);
+    border: 1px solid rgba(27, 67, 50, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-smooth);
+    box-sizing: border-box;
+}
+
+.expert-main-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(27, 67, 50, 0.08);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.expert-main-card h3 {
+    color: var(--vert-primary);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.card-lead {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--orange-action);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.card-bullet-list {
+    list-style: none;
+    margin-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.card-bullet-list li {
+    font-size: 0.95rem;
+    color: #4B5563;
+    line-height: 1.5;
+    position: relative;
+    padding-left: 20px;
+}
+
+.card-bullet-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--vert-light);
+    font-weight: bold;
+}
+
+.btn-card-action {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: var(--vert-primary);
+    color: var(--white) !important;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+    box-sizing: border-box;
+}
+
+.btn-card-action:hover {
+    background-color: var(--orange-action);
+    box-shadow: 0 8px 20px rgba(217, 119, 6, 0.25);
+}
+
+/* ==========================================================================
+   ADAPTATION SMARTPHONE SANS FAILLES (RESPONSIVE)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .expertises-hero {
+        padding: 120px 24px 60px 24px;
+        text-align: center;
+    }
+    .expertises-detail-section {
+        padding: 60px 24px;
+    }
+    .expertises-main-grid {
+        gap: 25px;
+    }
+    .expert-main-card {
+        padding: 30px 20px;
+    }
+}

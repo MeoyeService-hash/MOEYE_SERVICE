@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MOeye Service </title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="javascript.js" defer></script>
+    <script src="rendevous.js" defer></script>
+    <script src="formulaire.js" defer></script>
+</head>
+<body>
+<header id="mainHeader">
+    <div class="logo">
+        <a href="#accueil">
+            <img src="image/logo.png" alt="Logo MOAYE SERVICE">
+        </a>
+    </div>
+    
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+    
+    <nav>
+        <!-- CORRECTION : Ajout de id="navLinks" et passage du P de partenaires en minuscule -->
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="Experstise.html">Expertises Agro-pastoral</a></li>
+            <li><a href="Projet.html">Projets</a></li>
+            <li><a href="index.html#partenaires">Nos partenaires</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ==========================================================================
+   3. BANNIÈRE PRINCIPALE (HERO) AVEC TEXTE DYNAMIQUE ET ARRIÈRE-PLAN ANIMÉ
+   ========================================================================== -->
+<div class="monheaderImage" id="accueil">
+    
+    <!-- Le calque physique que le JavaScript / CSS pilote en direct pour le mouvement vertical -->
+    <div class="hero-bg-js" id="heroBgJs"></div>
+
+    <div class="hero-text-container">
+        <h1>MOAYE SERVICE | L'Expertise au service de vos projets <span class="orange-txt">Agro-pastoraux</span> et <span class="orange-txt">BTP</span>.</h1>
+        
+        <!-- CORRECTION : Ajout de la balise span id="typewriterDesc" indispensable pour l'effet d'effacement -->
+        <p class="hero-description">
+            <span id="typewriterDesc">Acteur majeur dans l'accompagnement, le conseil technique, l'aménagement de fermes modernes et la réalisation d'infrastructures durables en Côte d'Ivoire.</span>
+        </p>
+        
+        <div class="hero-buttons-group">
+            <a href="#expertises" class="btn-cta">Découvrir nos services</a>
+            <a href="contact.html" class="btn-cta btn-cta-secondary">Nous contacter</a>
+        </div>
+    </div>
+</div>
+
+
+
+<main>
+     <section id="expertises" class="expertises-section   scroll-animate-left   ">
+            <div class="section-title">
+                <h2>Nos Domaines d'Expertise</h2>
+                <p>Une double compétence unique pour répondre à vos besoins stratégiques.</p>
+            </div>
+            
+            <div class="expertises-grid">
+                <!-- Volet Agro-pastoral -->
+                <div class="expert-card">
+                    <h3>Volet Études et Conception</h3>
+                    <p>Rédaction de plans d'affaires (Business plans), études de marché et mise en œuvre globale de projets agro-industriels</p>
+                    <a href="#contact" class="btn-secondary">En savoir plus</a>
+                </div>
+                <div class="expert-card" id="btp">
+                    <h3>Volet Technique et Production</h3>
+                    <p>Développement de fermes (notamment aquacoles et piscicoles), construction d'ouvrages hydro-agricoles et formulation d'aliments pour le bétail.</p>
+                    <a href="#contact" class="btn-secondary">En savoir plus</a>
+                </div>
+                <div class="expert-card" >
+                    <h3>Volet Formation et Conseil</h3>
+                    <p> Encadrement et formation pratique des acteurs locaux (pisciculteurs, éleveurs, coopératives villageoises) aux bonnes pratiques de gestion.</p>
+                    <a href="#contact" class="btn-secondary">En savoir plus</a>
+                </div>
+            </div>
+        </section>
+            <section id="galerie" class="galerie-section    scroll-animate-right">
+            <div class="section-title">
+                <h2>Nos Plus Belles Réalisations</h2>
+                <p>Découvrez notre savoir-faire validé sur le terrain.</p>
+            </div>
+            <!-- Boutons de filtrage dynamique gérés par le JavaScript -->
+           
+            <!-- Grille d'images de réalisations -->
+            <div class="gallery-grid">
+                <!-- Projet 1 : Apiculture -->
+                <div class="gallery-item" data-category="agro">
+                    <img src="image/apiculturre.jpg" alt="Apiculture moderne">
+                    <div class="gallery-overlay"><span></span></div>
+                </div>
+                <!-- Projet 2 : Bâtiment Scolaire -->
+                <div class="gallery-item" data-category="btp">
+                    <img src="image/leau.jpg" alt="Construction de classe">
+                    <div class="gallery-overlay"><span></span></div>
+                </div>
+                <!-- Projet 3 : Pisciculture -->
+                <div class="gallery-item" data-category="agro">
+                    <img src="image/pompe.png" alt="Bassin de pisciculture">
+                    <div class="gallery-overlay"><span></span></div>
+                </div>
+                <!-- Projet 4 : Génie Civil -->
+                <div class="gallery-item" data-category="btp">
+                    <img src="image/projet1.jpg" alt="Génie Civil">
+                    <div class="gallery-overlay"><span></span></div>
+                </div>
+                <div class="gallery-item" data-category="btp">
+                    <img src="image/Pindad.jpg" alt="pintad">
+                    <div class="gallery-overlay"><span></span></div>
+                </div>
+                <div class="gallery-item" data-category="btp">
+                    <img src="image/MonsieurYa.png" alt="yaEsseimeon">
+                    <div class="gallery-overlay"><span></span></div>
+                </div>
+            </div>
+            <div class="center-btn">
+                <a href="Projet.html" class="btn-cta">Voir toutes nos réalisations</a>
+            </div>
+        </section>
+         <section class="why-us-section   scroll-animate-left">
+    <div class="section-title">
+        <h2>Pourquoi choisir ?</h2>
+        <p>Nous transformons vos investissements en exploitations rentables, durables et totalement autonomes.</p>
+    </div>
+    <div class="why-us-grid">
+        <!-- Argument 1 -->
+        <div class="why-card">
+            <h3>Synergie et rentabilité maximale</h3>
+            <p>Nous concevons vos fermes pour qu'aucun déchet ne soit perdu. Nous recyclons les déjections de vos élevages pour fertiliser vos cultures maraîchères, et réutilisons vos résidus agricoles pour nourrir vos poissons et votre bétail. Vous réduisez vos dépenses et multipliez vos gains.</p>
+        </div>
+        <!-- Argument 2 -->
+        <div class="why-card">
+            <h4>Garantie de votre sécurité alimentaire</h4>
+            <p>Nous construisons à vos côtés des modèles d'exploitations modernes visant l'autosuffisance totale en viandes, poissons et produits maraîchers. En choisissant nos infrastructures, vous sécurisez vos sources d'approvisionnement et répondez avec succès à la demande locale.</p>
+        </div>
+        <!-- Argument 3 -->
+        <div class="why-card">
+            <h4>Indépendance totale en provenderie</h4>
+            <p>Ne subissez plus la flambée des prix des aliments importés ! Nous intégrons à vos projets des unités de production locale d'aliments pour bétail grâce à nos extrudeuses haute performance. Vous fabriquez votre propre provende et reprenez le contrôle de vos coûts de production.</p>
+        </div>
+    </div>
+</section>
+<!-- ==========================================================================
+   MODULE PARTENAIRES : DÉFILEMENT AUTOMATIQUE ET CONTINU (GAUCHE VERS DROITE)
+   ========================================================================== -->
+<section id="partenaires" class="partenaires-slider-section   scroll-animate-right">
+    <div class="section-title-center">
+        <h2>Nos Partenaires Stratégiques</h2>
+        <div class="decor-leaf">🍃</div>
+    </div>
+    
+    <!-- Conteneur principal du slider -->
+    <div class="slider-container" id="sliderContainer">
+        <div class="logos-track" id="logosTrack">
+            
+            <!-- ================= SÉRIE 1 (ORIGINALE) ================= -->
+            <!-- Logo 1 : FEM -->
+            <div class="logo-slide">
+                <a href="https://afdb.org" target="_blank">
+                    <img src="imagePatenaires/GEF_logo.png" alt="FEM - Fonds pour l'Environnement Mondial">
+                </a>
+            </div>
+            
+            <!-- Logo 2 : ONG Agropole -->
+            <div class="logo-slide">
+               <a href="https://pdc2v.ci/agroples/" target="_blank">
+                   <img src="imagePatenaires/Agropole.png" alt="ONG Agropole Toumodi">
+                </a>
+            </div>
+            
+            <!-- Logo 3 : CSRS -->
+            <div class="logo-slide">
+                <a href="https://www.csrs.ch/fr" target="_blank">
+                    <img src="imagePatenaires/CRSS.png" alt="Centre Suisse de Recherches Scientifiques en Côte d’Ivoire (CSRS)"> 
+                </a>
+            </div>
+            
+            <!-- Logo 4 : CORAF -->
+            <div class="logo-slide">
+               <a href="https://experts.coraf.org/" target="_blank">
+                 <img src="imagePatenaires/logoCORAF.png" alt="CORAF">
+               </a>
+            </div>
+
+            <!-- ================= SÉRIE 2 (DUPLICATION DOUBLE EFFET) ================= -->
+            <!-- Logo 1 Réplique -->
+            <div class="logo-slide">
+                <a href="https://afdb.org" target="_blank">
+                    <img src="imagePatenaires/GEF_logo.png" alt="FEM - Fonds pour l'Environnement Mondial">
+                </a>
+            </div>
+            
+            <!-- Logo 2 Réplique -->
+            <div class="logo-slide">
+               <a href="https://pdc2v.ci/agroples/" target="_blank">
+                   <img src="imagePatenaires/Agropole.png" alt="ONG Agropole Toumodi">
+                </a>
+            </div>
+            
+            <!-- Logo 3 Réplique -->
+            <div class="logo-slide">
+                <a href="https://www.csrs.ch/fr" target="_blank">
+                    <img src="imagePatenaires/CRSS.png" alt="Centre Suisse de Recherches Scientifiques en Côte d’Ivoire (CSRS)"> 
+                </a>
+            </div>
+            
+            <!-- Logo 4 Réplique -->
+            <div class="logo-slide">
+               <a href="https://experts.coraf.org/" target="_blank">
+                 <img src="imagePatenaires/logoCORAF.png" alt="CORAF">
+               </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<section id="demande-projet" class="contact-section">
+    <!-- CÔTÉ GAUCHE : Textes d'introduction fixés -->
+    <div class="contact-intro-box">
+        <h2>Formulaire de Demande de Projet</h2>
+        <p class="intro-lead">Merci de l'intérêt porté à MOAYE SERVICE.</p>
+        <p>Veuillez remplir ce formulaire pour nous aider à mieux comprendre votre projet agro-pastoral et vous proposer une solution sur-mesure adaptée à vos ambitions.</p>
+    </div>
+    
+    <!-- CÔTÉ DROIT : Le bloc formulaire compact -->
+    <div class="contact-wrapper">
+        <form id="projectForm" class="quote-form" novalidate>
+            
+            <!-- PARTIE 1 : INFORMATIONS GÉNÉRALES -->
+            <div class="form-section-title">1. Informations Générales</div>
+            
+            <div class="form-block" id="block-proj-name">
+                <label class="block-label">Nom complet / Nom de l'entreprise <span class="required-star">*</span></label>
+                <div class="form-single-input">
+                    <input type="text" id="proj-name" placeholder="Ex: Jean Koffi / Société Coopérative">
+                </div>
+                <div class="error-message">⚠️ Ce champ est obligatoire.</div>
+            </div>
+
+            <div class="form-block" id="block-proj-city">
+                <label class="block-label">Ville / Région <span class="required-star">*</span></label>
+                <div class="form-single-input">
+                    <input type="text" id="proj-city" placeholder="Ex: Abidjan, Toumodi, Bouaké">
+                </div>
+                <div class="error-message">⚠️ Ce champ est obligatoire.</div>
+            </div>
+
+            <div class="form-block" id="block-proj-phone">
+                <label class="block-label">Téléphone (WhatsApp de préférence) <span class="required-star">*</span></label>
+                <div class="form-single-input">
+                    <input type="text" id="proj-phone" placeholder="Ex: 07 00 00 00 00">
+                </div>
+                <div class="error-message">⚠️ Ce champ est obligatoire.</div>
+            </div>
+
+            <div class="form-block" id="block-proj-email">
+                <label class="block-label">E-mail <span class="required-star">*</span></label>
+                <div class="form-single-input">
+                    <input type="email" id="proj-email" placeholder="exemple@domaine.com">
+                </div>
+                <div class="error-message">⚠️ Adresse e-mail invalide ou manquante.</div>
+            </div>
+
+            <!-- PARTIE 2 : SECTEUR D'INTÉRÊT -->
+            <div class="form-section-title">2. Votre Secteur d'Intérêt</div>
+            <div class="form-block" id="block-proj-sectors">
+                <label class="block-label">Cochez la case correspondante <span class="required-star">*</span></label>
+                <div class="radio-checkbox-group">
+                    <label class="option-label"><input type="checkbox" class="proj-sector-check" value="Pisciculture (Installation hors-sol, étude technique)"> Pisciculture : Installation hors-sol, étude de faisabilité technique.</label>
+                    <label class="option-label"><input type="checkbox" class="proj-sector-check" value="Aviculture (Pondeuses ou Poulets de chair)"> Aviculture : Élevage de pondeuses (production d'œufs) ou poulets de chair.</label>
+                    <label class="option-label"><input type="checkbox" class="proj-sector-check" value="Élevage bovin (Lait ou Engraissement)"> Élevage bovin : Production de lait ou engraissement de vaches laitières.</label>
+                    <label class="option-label"><input type="checkbox" class="proj-sector-check" value="Élevage porcin (Charcutiers et Budget)"> Élevage porcin : Production de porcs charcutiers et gestion budgétaire.</label>
+                    <label class="option-label" id="proj-autre-option">
+                        <input type="checkbox" class="proj-sector-check" value="Autre" id="sector-autre"> Autre : 
+                        <input type="text" id="proj-sector-autre-text" placeholder="Précisez votre élevage..." class="inline-text-input">
+                    </label>
+                </div>
+                <div class="error-message">⚠️ Veuillez sélectionner au moins un secteur d'intérêt.</div>
+            </div>
+
+            <!-- PARTIE 3 : DÉTAILS DU PROJET -->
+            <div class="form-section-title">3. Détails du Projet</div>
+            <div class="form-block" id="block-proj-service">
+                <label class="block-label">Type de service souhaité <span class="required-star">*</span></label>
+                <div class="radio-checkbox-group">
+                    <label class="option-label"><input type="radio" name="proj-service" value="Étude de faisabilité complète"> Étude de faisabilité complète</label>
+                    <label class="option-label"><input type="radio" name="proj-service" value="Analyse de rentabilité financière"> Analyse de rentabilité financière</label>
+                    <label class="option-label"><input type="radio" name="proj-service" value="Accompagnement technique / Coaching"> Accompagnement technique / Coaching</label>
+                    <label class="option-label"><input type="radio" name="proj-service" value="Installation d'infrastructures"> Installation d'infrastructures</label>
+                </div>
+                <div class="error-message">⚠️ Veuillez cocher le type de service souhaité.</div>
+            </div>
+
+            <div class="form-block" id="block-proj-size">
+                <label class="block-label">Quelle est la taille prévue de votre exploitation ? <span class="required-star">*</span></label>
+                <div class="form-single-input">
+                    <input type="text" id="proj-size" placeholder="Ex: 1000 pondeuses, 10 bacs hors-sol...">
+                </div>
+                <div class="error-message">⚠️ Ce champ est obligatoire.</div>
+            </div>
+
+            <div class="form-block" id="block-proj-hasLand">
+                <label class="block-label">Disposez-vous déjà d'un site/terrain ? <span class="required-star">*</span></label>
+                <div class="radio-checkbox-group inline-options">
+                    <label class="option-label"><input type="radio" name="proj-hasLand" value="Oui"> Oui</label>
+                    <label class="option-label"><input type="radio" name="proj-hasLand" value="Non"> Non</label>
+                </div>
+                <div class="error-message">⚠️ Veuillez répondre à cette question.</div>
+            </div>
+
+            <!-- PARTIE 4 : BUDGET ET DÉLAIS -->
+            <div class="form-section-title">4. Budget et Délais</div>
+            <div class="form-block" id="block-proj-budget">
+                <label class="block-label">Budget estimé pour l'investissement <span class="required-star">*</span></label>
+                <div class="form-single-input">
+                    <input type="text" id="proj-budget" placeholder="Ex: 5 000 000 FCFA, À définir...">
+                </div>
+                <div class="error-message">⚠️ Ce champ est obligatoire.</div>
+            </div>
+
+            <div class="form-block" id="block-proj-delay">
+                <label class="block-label">Quand souhaitez-vous démarrer le projet ? <span class="required-star">*</span></label>
+                <div class="radio-checkbox-group">
+                    <label class="option-label"><input type="radio" name="proj-delay" value="Immédiatement"> Immédiatement</label>
+                    <label class="option-label"><input type="radio" name="proj-delay" value="D'ici 3 à 6 mois"> D'ici 3 à 6 mois</label>
+                    <label class="option-label"><input type="radio" name="proj-delay" value="Étude préliminaire uniquement"> Étude préliminaire uniquement</label>
+                </div>
+                <div class="error-message">⚠️ Veuillez sélectionner un délai de démarrage.</div>
+            </div>
+
+            <button type="submit" class="btn-submit">Soumettre </button>
+        </form>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="footer-grid">
+        
+        <!-- Colonne 1 : À Propos de l'entreprise -->
+        <div class="footer-column footer-brand">
+            <h3>MOAYE <span class="accent-text">SERVICE</span></h3>
+            <p>Votre partenaire stratégique en Côte d'Ivoire. Nous mettons notre double compétence unique au service de la réussite de vos projets Agro-pastoraux et BTP.</p>
+        </div>
+
+        <!-- Colonne 2 : Liens de navigation rapide -->
+        <div class="footer-column">
+            <h4>Navigation</h4>
+            <ul class="footer-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#expertises">Nos Expertises</a></li>
+                <li><a href="#partenaires">Partenaires</a></li>
+                <li><a href="#galerie">Galerie Projets</a></li>
+                <li><a href="#demande-projet">Demander un devis</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 3 : Informations de contact direct cliquables -->
+        <div class="footer-column">
+            <h4>Nos Coordonnées</h4>
+            <ul class="footer-contact-list">
+                <li>📍 <span>Toumodi</span></li>
+                <li>🕒 <span>Lun - Ven : 08h00 - 17h00</span></li>
+                <li>📞 <a href="tel:+225 +225 00 00 00 00 00 ">+225 0709732358</a></li>
+                <li>✉️ <a href="mailto:contact@moayeservice.com">contact@moayeservice.com</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 4 : Réseaux sociaux & Action Directe -->
+        <div class="footer-column">
+            <h4>Suivez-nous</h4>
+            <div class="footer-socials">
+                <a href="#" class="social-link">Facebook</a>
+                <!-- Lien direct WhatsApp qui utilise votre variable globale -->
+                <a href="#" target="_blank" class="social-link whatsapp-footer">WhatsApp En Ligne</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Zone des mentions légales et copyright tout en bas -->
+    <div class="footer-bottom">
+        <p>&copy; 2026 MOAYE SERVICE - Tous droits réservés.</p>
+        <p class="dev-credit">Développé par N'goran Koffi Michael </p>
+
+
+        <button id="backToTop" class="back-to-top-btn" aria-label="Retourner en haut">
+    <span class="arrow-up">↑</span>
+       </button>
+
+       <!-- BOUTON INTELLIGENT DE RETOUR EN HAUT -->
+<button id="backToTop" class="back-to-top-btn" aria-label="Retourner en haut">
+    <span class="arrow-up">↑</span>
+</button>
+
+    </div>
+</footer>
+
+</main>
+<!-- BOUTON STRATÉGIQUE WHATSAPP (S'ACTIVE AU FOOTER) -->
+
+
+    
+</body>
+
+
+
+
+
+</html>
